@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Do list</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+  }
+
+  /* Header styles */
+  .header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .header h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  /* To-Do List styles */
+  .todo-container {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .todo-header {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .todo-header input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  .todo-header button.addBtn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+  }
+
+  .todo-header button.addBtn:hover {
+    background-color: #45A049;
+  }
+
+  /* To-Do List styles */
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li:nth-child(odd) {
+    background-color: #f7f7f7;
+  }
+
+  li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .close {
+    font-size: 18px;
+    color: #e74c3c;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #c0392b;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>To-Do List App</h2>
+  <div class="todo-header">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="text" name="title" id="myInput" placeholder="Add a new task...">
+      <button type="submit" class="addBtn">Add Task</button>
+    </form>
+  </div>
+</div>
+
+<div class="todo-container">
+  <ul id="myUL">
+    {% for todo in todos reversed %}
+      <li>
+        {{ todo.title | title }}
+        <span class="close">
+          <a href="delete/{{ todo.id }}" style="text-decoration: none; color: #e74c3c;">Delete</a>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+</body>
+</html>
